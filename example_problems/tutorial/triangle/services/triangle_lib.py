@@ -1,6 +1,53 @@
 #!/usr/bin/env python3
 import random
 
+# PER MODALITA' LAZY, GENERIAMO UN TRIANGOLO CASUALE DI n RIGHE
+
+def random_triangle(n,m,M,s):
+	random.seed(s,version=2)
+	values = []
+	for _ in range(0, sum(range(n+1))):
+		values.append(random.randrange(m,M))
+	return values
+
+# STAMPIAMO IL TRIANGOLO SUL TERMINALE
+
+def print_triangle(n,triangle_array):
+	for i in range(len(triangle_array)):
+		if len(str(triangle_array[i])) == 1:
+			triangle_array[i] = str(triangle_array[i]) + " "
+	z = 0
+	m = (2 * n) - 2
+	for i in range(0, n):
+		for j in range(0, m):
+		    print(end="  ")
+		m = m - 1
+		for j in range(0, i + 1):
+		    print(triangle_array[z], end='  ')
+		    z += 1
+		print("  ")
+		
+def calculate_path(n,triangle,path_values):
+	path = [triangle[0]]
+	s = triangle[0]
+	i = 0
+	last_pos = 0
+	for move in path_values:
+		if(move == "L"):
+		    path.append(triangle[i+1 + last_pos])
+		    s += triangle[i+1 + last_pos]
+		    last_pos = i + 1 + last_pos
+		else:
+		    path.append(triangle[i+2 + last_pos])
+		    s += triangle[i+2 + last_pos]
+		    last_pos = i + 2 + last_pos
+		i += 1
+	return path,s
+
+#rtal connect -a how_to_input_the_triangle=100000 triangle check_one_sol
+
+
+'''		
 def recognize(treatement, TAc, LANG, yield_feedback=True):
     assert type(treatement)==str
     #print(f"treatement={treatement}")
@@ -124,3 +171,4 @@ if __name__ == "__main__":
         for _ in range(5):
             #print(p.rand_gen(n))
             assert p.rand_gen(n, _ + 5*n) == p.rand_gen(n, _ + 5*n)
+'''
